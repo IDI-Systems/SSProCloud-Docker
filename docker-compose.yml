@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  ssprocloudserver:
+    image: scottyhardy/docker-wine:stable-7.0
+    restart: always
+    # entrypoint sets up RDP due to RDP_SERVER=yes, but we need Xvfb to start wine programs, as xrdp does not create a display until something connects
+    # we also start a wine application (taskmgr) to keep Windows Services running
+    #entrypoint: bash -c "/usr/bin/entrypoint & Xvfb :95 -screen 0 320x200x8 & sleep 1 && DISPLAY=:95 sudo -u wineuser -s wine taskmgr"
+    entrypoint: bash -c "/usr/bin/entrypoint & Xvfb :95 -screen 0 320x200x8"
+    tty: true
+    ports:
+      - "127.0.0.1:3389:3389/tcp" # RDP (internal, through SSH tunnel only)
+      - "1805:1805/tcp" # Pro Cloud Floating License (SSL)
+    environment:
+      RDP_SERVER: "yes"
+    volumes:
+      - ./winehome:/home/wineuser
