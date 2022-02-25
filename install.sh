@@ -13,13 +13,12 @@ winetricks mdac28 &> ssprocloud-docker.log
 
 if [ -f /home/wineuser/ssprocloud/ssprocloudserver.msi ]; then
     wine /home/wineuser/ssprocloud/ssprocloudserver.msi
+
+    # Remove duplicated link files on Desktop
+    rm "/home/wineuser/Desktop/Pro Cloud Config Client.lnk"
+    rm "/home/wineuser/Desktop/Floating License Config Client.lnk"
 else
     echo "Skipping SSProCloudServer installation - installer not found!"
-fi
-if [ -f /home/wineuser/ssprocloud/server.pem ]; then
-    cp /home/wineuser/ssprocloud/server.pem /home/wineuser/.wine/drive_c/Program\ Files/Sparx\ Systems/Pro\ Cloud\ Server/Service/server.pem
-else
-    echo "Skipping SSL Certificate installation - certificate not found!"
 fi
 
 echo "Installation complete!"

@@ -4,6 +4,14 @@ MODE=${MODE:run}
 
 if [ "${MODE}" = "admin" ]; then
     echo "Running in 'admin' mode - RDP enabled"
+
+    # Create desktop shortcut to install.sh
+    if [ ! -f /home/wineuser/Desktop/ssprocloud-install.sh ]; then
+        echo 'xfce4-terminal -x bash -c "/usr/bin/ssprocloud-install; read -p \"Press enter to close\""' > /home/wineuser/Desktop/ssprocloud-install.sh
+        chmod +x /home/wineuser/Desktop/ssprocloud-install.sh
+    fi
+
+    # Run RDP
     RDP_SERVER=yes exec /usr/bin/entrypoint
 elif [ "${MODE}" = "run" ]; then
     echo "Running in 'run' mode - RDP disabled"
