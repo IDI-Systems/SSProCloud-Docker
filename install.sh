@@ -2,23 +2,23 @@
 
 set -e
 
+LOG=ssprocloud-docker.log
+> $LOG
+
 echo "Installing SSProCloud prerequisites"
 echo "Follow installation instructions of any installer that will show"
 echo ""
 
-echo "Installing 32-bit prefix..."
-WINEARCH=win32 wine wineboot &> ssprocloud-docker.log
-echo "Installing mdac28..."
-winetricks mdac28 &> ssprocloud-docker.log
+echo "Installing 32-bit prefix..." 2>&1 | tee -a $LOG
+WINEARCH=win32 wine wineboot >>$LOG 2>&1
+echo "Installing mdac28..." 2>&1 | tee -a $LOG
+winetricks mdac28 >>$LOG 2>&1
 
 if [ -f /home/wineuser/ssprocloud/ssprocloudserver.msi ]; then
-    wine /home/wineuser/ssprocloud/ssprocloudserver.msi
-
-    # Remove duplicated link files on Desktop
-    rm "/home/wineuser/Desktop/Pro Cloud Config Client.lnk"
-    rm "/home/wineuser/Desktop/Floating License Config Client.lnk"
+    echo "Installing SSProCloud..." 2>&1 | tee -a $LOG
+    wine /home/wineuser/ssprocloud/ssprocloudserver.msi >>$LOG 2>&1
 else
-    echo "Skipping SSProCloudServer installation - installer not found!"
+    echo "Skipping SSProCloud installation - installer not found!"
 fi
 
 echo "Installation complete!"
