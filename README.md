@@ -83,7 +83,7 @@ _At this time, only Firebird DBMS is tested._
 
 Add a Database Manager (Model) in Pro Cloud Config Client and use `<name>.feap` as a Filename (replace `<name>` with a wanted Model name). This will create a Firebird database which can be loaded in Enterprise Architect.
 
-TO load a Model in Enterprise Architect, use the following Cloud Connection details:
+To load a Model in Enterprise Architect, use the following Cloud Connection details:
 - Protocol: `https://`
 - Server: _address of your server_
 - Port: `1805` for `https://`, `1804` for `http://`
