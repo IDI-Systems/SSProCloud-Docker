@@ -39,7 +39,7 @@ Running Pro Cloud Server in a container is composed of 2 separate steps:
     - _You may run install script multiple times._
 - Configure software as necessary _(see below for various documentation on its configuration)_.
     - Entire `wineuser`'s home directory is volume-mounted as `winehome`.
-- Clos all programs and wait a few seconds for all Wine processes to stop gracefully.
+- Close all programs and wait a few seconds for all Wine processes to stop gracefully.
 - Shut down the container before proceeding to run it headlessly.
 
 ### Run
