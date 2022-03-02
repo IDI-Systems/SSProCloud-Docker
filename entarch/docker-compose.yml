@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  entarch:
+    image: scottyhardy/docker-wine:stable-7.0
+    entrypoint: /usr/bin/entarch-entrypoint
+    ports:
+      - "127.0.0.1:3389:3389/tcp" # RDP (internal)
+    volumes:
+      - ./winehome:/home/wineuser
+      - ./entrypoint.sh:/usr/bin/entarch-entrypoint
+      - ./install.sh:/usr/bin/entarch-install
+      - ${ENTARCH_INSTALLER}:/home/wineuser/entarch/easetup.msi
