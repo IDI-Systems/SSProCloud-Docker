@@ -8,6 +8,9 @@ services:
     ports:
       - "127.0.0.1:3389:3389/tcp" # RDP (internal, through SSH tunnel only)
       - "1805:1805/tcp" # Pro Cloud Floating License (SSL)
+    networks:
+      ssprocloud:
+        ipv4_address: ${BASE_IP}.2
     environment:
       ADMIN: ${ADMIN:-no}  # "yes" or "no"
     volumes:
@@ -16,3 +19,22 @@ services:
       - ./install.sh:/usr/bin/ssprocloud-install
       - ${SSL_CERT}:/home/wineuser/.wine/drive_c/Program Files/Sparx Systems/Pro Cloud Server/Service/server.pem
       - ${SSPROCLOUD_INSTALLER}:/home/wineuser/ssprocloud/ssprocloudserver.msi
+  ssprocloudwebconfig:
+    build: webconfig
+    restart: always
+    ports:
+      - "1800:80/tcp"
+    networks:
+      ssprocloud:
+        ipv4_address: ${BASE_IP}.3
+    volumes:
+      - ./winehome/.wine/drive_c/Program Files/Sparx Systems/Pro Cloud Server/WebConfig:/var/www/html
+      - ${WEBCONFIG_SETTINGS}:/var/www/html/settings.php
+
+networks:
+  ssprocloud:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: ${BASE_IP}.0/16
+          gateway: ${BASE_IP}.1

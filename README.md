@@ -106,3 +106,9 @@ Now Floating License Config Client can connect to Floating License Server using 
 - Password: `admin` (or password set above)
 
 Keystore should successfully load and additional configuration can be done in the user interface or through `ssflsgroups.config` file.
+
+### WebConfig
+
+An image is included for WebClient, hosted with Apache/PHP and by default configured to connect to default Pro Cloud Server port in the server image. `webconfig/settings.php` may be edited accordingly.
+
+**WebClient will not have access to Pro Cloud Server with the default White List setup.** It is advisable to change the password of the Pro Cloud Server `admin` first, then add `181.3.0.3` (as configured) to the White List.
