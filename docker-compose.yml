@@ -20,6 +20,7 @@ services:
       - ./install.sh:/usr/bin/ssprocloud-install
       - ${SSL_CERT}:/home/wineuser/.wine/drive_c/Program Files/Sparx Systems/Pro Cloud Server/Service/server.pem
       - ${SSPROCLOUD_INSTALLER}:/home/wineuser/ssprocloud/ssprocloudserver.msi
+
   ssprocloudwebconfig:
     build: webconfig
     restart: always
