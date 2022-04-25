@@ -1,18 +1,18 @@
 #!/bin/bash
 
 ADMIN=${ADMIN:-no}
+SSPROCLOUD_64BIT=${SSPROCLOUD_64BIT:-yes}
 
 if [ "${ADMIN}" = "yes" ]; then
     echo "Running in 'admin' mode - RDP enabled"
 
-    # Create desktop shortcut to install.sh
-    if [ ! -f /home/wineuser/Desktop/ssprocloud-install.sh ]; then
-        # Create Desktop folder as it won't be created until RDP server runs
-        mkdir -p /home/wineuser/Desktop
+    # Create Desktop folder as it won't be created until RDP server runs
+    mkdir -p /home/wineuser/Desktop
 
-        echo 'xfce4-terminal -x bash -c "/usr/bin/ssprocloud-install; read -p \"Press enter to close\""' > /home/wineuser/Desktop/ssprocloud-install.sh
-        chmod +x /home/wineuser/Desktop/ssprocloud-install.sh
-    fi
+    # Create desktop shortcut to install.sh (replace if already exists to update variables)
+    rm /home/wineuser/Desktop/ssprocloud-install.sh
+    echo 'xfce4-terminal -x bash -c "USE_64BIT='$SSPROCLOUD_64BIT' /usr/bin/ssprocloud-install; read -p \"Press enter to close\""' > /home/wineuser/Desktop/ssprocloud-install.sh
+    chmod +x /home/wineuser/Desktop/ssprocloud-install.sh
 
     # Run RDP
     RDP_SERVER=yes exec /usr/bin/entrypoint

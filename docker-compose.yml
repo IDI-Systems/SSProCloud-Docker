@@ -13,6 +13,7 @@ services:
         ipv4_address: ${BASE_IP}.2
     environment:
       ADMIN: ${ADMIN:-no}  # "yes" or "no"
+      SSPROCLOUD_64BIT: ${SSPROCLOUD_64BIT:-yes}  # "yes" or "no"
     volumes:
       - ./winehome:/home/wineuser
       - ./entrypoint.sh:/usr/bin/ssprocloud-entrypoint
