@@ -123,6 +123,10 @@ Pro Cloud Config Client:
 - Server Address: `localhost:1803`
 - Password: `pcsadm1n`
 
+Floating License Server:
+- Username: `admin`
+- Password: `password`
+
 ### Database Managers
 
 **Only applies to v4.x!** v5.0 brings Native Database Managers which should be used instead.
@@ -139,19 +143,11 @@ To load a Model in Enterprise Architect, use the following Cloud Connection deta
 
 ### Floating License Server
 
-Minimal configuration includes modifying the `ssflsgroups.config` to allow access to the Floating License Config Client to connect to the Server. The following can be done in Admin mode inside the container or in volume-mounted `winehome`.
-
-- Open `"winehome/wineuser/.wine/drive_c/Program Files/Sparx Systems/Pro Cloud Server/Service/ssflsgroups.config"`.
-- Find Administrator group named `Sparx PCS Floating License Admin`.
-- Replace `EncryptPwd=Z?@k$wvaxzm2Ak` with `Password=admin` (or other custom password).
-    - _Floating License Config Client will crash if an empty password is provided!_
-
-Now Floating License Config Client can connect to Floating License Server using the following details:
+Floating License Config Client can connect to Floating License Server using the following details:
 - Protocol: `https://`
 - Server Address: `localhost`
 - Port: `1805`
-- User Name: `admin`
-- Password: `admin` (or password set above)
+- Username and Password as noted above
 
 Keystore should successfully load and additional configuration can be done in the user interface or through `ssflsgroups.config` file.
 
