@@ -1,6 +1,6 @@
 # SSProCloud-Docker
 
-Docker setup for Sparx Systems Pro Cloud Server for Enterprise Architect.
+Docker setup for Sparx Systems Pro Cloud Server for Enterprise Architect, simplifying setup and reducing maintenance on Linux systems.
 
 **Supported Pro Cloud Server versions: `4.2`, `5.0`**
 
@@ -12,16 +12,28 @@ Running Pro Cloud Server in a container is composed of 2 separate steps:
 - **Installation and Configuration** to setup the environment and install software inside the container. Installers are not publically available so we cannot preinstall them in an image. Additionally, installers require user interface input, for which we use an RDP connection.
 - **Running** to run Pro Cloud Server as installed and configured completely headlessly. Due to Wine requirement, Xvfb is still used to provide a virtual screen and allow Wine programs to run.
 
+_Windows host systems are not tested, but should work correctly with Linux containers enabled._
+
 
 ## Setup
+
+### Requirements
+
+- Machine capable of running Linux Docker containers.
+- [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/).
+- An SSL certificate in PEM format _(see below for examples, eg. self-signed, Traefik or other provider)_.
+- Pro Cloud Server installer (`ssprocloudserver(_x64).msi`) obtained with a Sparx Systems licence.
+- Remote Desktop Protocol client (eg. [Remmina](https://remmina.org/) with [FreeRDP](https://www.freerdp.com/)).
 
 ### Install
 
 - Clone this repository.
-- Place required Pro Cloud Server files somewhere (recommended into `ssprocloud` folder).
-    - SSL certificate `server.pem` _(see below)_.
-    - Installer `ssprocloudserver(_x64).msi` as obtained with a Sparx Systems licence.
-- Edit `.env` as required (may skip if following recommendations in this guide).
+- Place required Pro Cloud Server files into `ssprocloud` folder (or somewhere accessible by `docker-compose`):
+    - SSL certificate `server.pem` if provided as file _(see below for alternatives)_.
+    - Installer `ssprocloudserver(_x64).msi`.
+- Edit variables in `.env` as required (may skip if following recommendations in this guide).
+    - Modify variable starting with `SSPROCLOUD_` according to the version of Pro Cloud Server you have.
+    - Modify `BASE_IP` if it clashes with other containers on the machine.
 - Bring container up in Admin mode `ADMIN=yes docker-compose up`.
 - Establish a Remote Desktop Protocol connection to the container.
     - RDP is only available locally by default, SSH tunneling should be used to connect to a remote RDP session.
@@ -129,7 +141,13 @@ Floating License Server:
 
 ### Database Managers
 
-**Only applies to v4.x!** v5.0 brings Native Database Managers which should be used instead.
+#### Native
+
+Native Database Managers are available since Pro Cloud Server v5.0 and should be used instead of ODBC. They do not require additional drivers and are easier to setup.
+
+#### ODBC (v4.x)
+
+**Note: Native Database Managers should be used instead of ODBC!**
 
 _At this time, only Firebird DBMS is tested._
 
