@@ -2,7 +2,7 @@
 
 Docker setup for Sparx Systems Pro Cloud Server for Enterprise Architect, simplifying setup and reducing maintenance on Linux systems.
 
-**Supported Pro Cloud Server versions: `4.2`, `5.0`**
+**Supported Pro Cloud Server versions: `4.2`, `5.0`, `5.1`**
 
 This project is built on top of [docker-wine](https://github.com/scottyhardy/docker-wine), providing Wine and Winetricks for running Sparx Systems software inside a Docker container.
 
